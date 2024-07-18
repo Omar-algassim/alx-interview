@@ -3,26 +3,35 @@
 import sys
 import re
 
-pattern = '\d*\.\d*\.\d*\.\d* - \[\d*-\d*-\d* \d*:\d*:\d*\.\d*\] "GET \/projects\/260 HTTP\/1.1" \d* \d*'
+# Improved pattern to match the log line
+pattern = r'\d+\.\d+\.\d+\.\d+ - \[\d+-\d+-\d+ \d+:\d+:\d+\.\d+\] "GET \/projects\/260 HTTP\/1\.1" (\d{3}) (\d+)'
+
 count = 0
 file_size = 0
 codes = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+
+def print_metrics():
+    """Prints the computed metrics"""
+    print(f"File size: {file_size}")
+    for k in sorted(codes.keys()):
+        if codes[k] > 0:
+            print(f"{k}: {codes[k]}")
+
 try:
     for line in sys.stdin:
-        if re.match(pattern, line):
-            size = re.search('(?:\d+)$', line)
-            status_code = re.search(' \d* ', line)
-            status_code = int(status_code.group(0))
-            codes[status_code] += 1
-            file_size += int(size.group(0))
-            if count == 9:
+        match = re.search(pattern, line)
+        if match:
+            status_code = int(match.group(1))
+            size = int(match.group(2))
+            if status_code in codes:
+                codes[status_code] += 1
+            file_size += size
+            count += 1
+            
+            if count == 10:
+                print_metrics()
                 count = 0
-                print(f"File size: {file_size}")
-                for k, v in codes.items():
-                    if v > 0:
-                        print(f"{k}: {v}")
-        count += 1
 except KeyboardInterrupt:
-    print(f"File size: {file_size}")
-    for k, v in codes.items():
-        print(f"{k}: {v}")
+    pass
+finally:
+    print_metrics()
