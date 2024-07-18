@@ -18,11 +18,12 @@ try:
             status_code = int(status_code.group(0))
             codes[status_code] += 1
             file_size += int(size.group(0))
-            if count == 9 or count == 0:
+            if count == 9:
                 count = 0
                 print(f"File size: {file_size}")
                 for k, v in codes.items():
-                    print(f"{k}: {v}")
+                    if v > 0:
+                        print(f"{k}: {v}")
         count += 1
 except KeyboardInterrupt:
     print(f"File size: {file_size}")
