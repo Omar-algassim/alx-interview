@@ -6,10 +6,11 @@ from typing import List
 def to_binary(num: int) -> list:
     """convert number to binary"""
     ret = ""
-    for x in range(8):
+    for _ in range(8):
         ret += (str(num % 2))
         num = num // 2
     return ret[::-1]
+
 
 def validUTF8(data: List[int]) -> bool:
     """test if the number is valid to utf-8"""
