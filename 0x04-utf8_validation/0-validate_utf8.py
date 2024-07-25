@@ -20,7 +20,6 @@ def validUTF8(data: List[int]) -> bool:
         4: ['11110', '10', '10', '10']
     }
     conv_num = []
-    length = len(data)
     size = 1
     count = 0
     for num in data:
