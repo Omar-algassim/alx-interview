@@ -3,7 +3,7 @@
 from typing import List
 
 
-def to_binary(self, num: int) -> list:
+def to_binary(num: int) -> list:
     """convert number to binary"""
     ret = ""
     for x in range(8):
@@ -24,18 +24,15 @@ def validUTF8(data: List[int]) -> bool:
     size = 1
     count = 0
     for num in data:
-        conv_num.append(self.to_binary(num))
+        conv_num.append(to_binary(num))
     while count < len(conv_num):
         for byte, pattern in patterns.items():
             if conv_num[count].startswith(pattern[0]):
                 size = byte
-        print(f"size is {size}")
         char = conv_num[count:size + count]
-        print(f"char is {char}")
         if len(char) < size:
             return False
         for pat, binary in zip(patterns[size], char):
-            print(binary.startswith(pat))
             if not binary.startswith(pat):
                 return False
         count += size
