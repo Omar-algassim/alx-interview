@@ -12,6 +12,5 @@ def makeChange(coins, total):
         while coins[n] <= total:
             total -= coins[n]
             ansList.append(coins[n])
-        print(f"{total} {coins[n]}")
         n -= 1
     return len(ansList) if total == 0 else -1
