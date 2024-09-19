@@ -4,8 +4,10 @@
 
 def makeChange(coins, total):
     """return the minumum coins to make the total"""
-    if not coins or total <= 0:
+    if not coins or coins is None:
         return -1
+    if total <= 0:
+        return 0
     length = len(coins) - 1
     coins.sort()
     change = 0
