@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 """islan perimeter problem"""
 
+
 def island_perimeter(grid):
     """return the island perimeter"""
     islan_perimeter = 0
-    row = len(grid) 
+    row = len(grid)
     col = len(grid[0])
     for i in range(row):
         for j in range(col):
