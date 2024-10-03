@@ -22,5 +22,3 @@ def isWinner(x, nums):
             current_player = 1 - current_player
         win[current_player] += 1
     return 'Maria' if win[0] > win[1] else 'Ben' if win[0] < win[1] else None
-
-print(isWinner(5, [2, 5, 1, 4, 3]))
