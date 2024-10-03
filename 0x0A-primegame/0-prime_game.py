@@ -9,16 +9,17 @@ def isWinner(x, nums):
     if x < 0 or len(nums) < x or max(nums) < 1: 
         return None
     
-    for role in range(x):
-        current_player = 0
-        prime = [False, False] + [True for i in range(2, nums[role] + 1)]
-        for i in range(2, nums[role] + 1):
+    for round in range(x):
+        current_player = 1
+        prime = [False, False] + [True for i in range(2, nums[round] + 1)]
+        for i in range(2, nums[round] + 1):
             if prime[i] == True:
                 prime_numbers.append(i)
-                for j in range(i * i, nums[role] + 1, i):
+                for j in range(i * i, nums[round] + 1, i):
                     prime[j] = False
-        for num in prime_numbers:
-            prime_numbers.remove(num)
+
+        for _ in prime_numbers:
             current_player = 1 - current_player
         win[current_player] += 1
+
     return 'Maria' if win[0] > win[1] else 'Ben' if win[0] < win[1] else None
